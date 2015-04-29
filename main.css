@@ -1,0 +1,68 @@
+body{
+	background-color: black;
+	color: #ffffff;
+  	font: 300 22px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  	text-align: center;
+}
+
+.hidden{
+	display: none;
+}
+
+.artist{
+	width:600px;
+	margin:20px auto;
+	height:268px;
+	padding: 5px;
+	border-bottom: 1px solid green;
+}
+
+.artist-name{
+	min-height:30px;
+	background-color: green;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.column{
+	width:48%;
+	height:75%;
+	float:left;
+	padding: 5px;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+.cover{
+	//background-color: blue;
+}
+
+.top-ten{
+	background-color: green;
+	float: right;
+}
+
+#input-search{
+	padding:11px 30px;
+	border-radius: 5px;
+	font-size: 18px;
+	color: gray;
+}
+
+.search-box{
+	margin: 10px;
+}
+
+.button-default {
+	border: 0;
+	border-radius: 5px;
+	background: green;
+	padding:11px 30px;
+	color: white;
+	margin: 10px 10px;
+	font-size: 18px;
+}
+
+#results{
+	display: none;
+}
