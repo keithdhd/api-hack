@@ -40,28 +40,6 @@ var showSearchResults = function(result){
 
 		//get the top 10 for this artist
 		artistTopTen = getTopTen(item);
-
-		// clone our result template code
-		var resultsTemplate = $(".templates .artist").clone();
-
-		var cover = resultsTemplate.find(".cover");
-		var artistName = resultsTemplate.find(".artist-name");
-		artistName.text(item.name);
-		
-		if(item.images.length){
-			var imageUrl = item.images[0].url;
-		}else
-			var imageUrl = "default image url";
-
-		cover.css({
-			"background-image": "url(" + imageUrl + ")",
-			"background-size": "cover"
-		});
-
-		var topTenTemplate = resultsTemplate.find(".top-ten");
-		topTenTemplate.text(artistTopTen.length);
-
-		$("#results").append(resultsTemplate).fadeIn(3000);
 	});
 
 }
@@ -73,7 +51,27 @@ var getTopTen = function(artist){
 		type: "GET"
 	})
 	.done(function(results){
-		return results;
+				// clone our result template code
+		var resultsTemplate = $(".templates .artist").clone();
+
+		var cover = resultsTemplate.find(".cover");
+		var artistName = resultsTemplate.find(".artist-name");
+		artistName.text(artist.name);
+		
+		if(artist.images.length){
+			var imageUrl = artist.images[0].url;
+		}else
+			var imageUrl = "default image url";
+
+		cover.css({
+			"background-image": "url(" + imageUrl + ")",
+			"background-size": "cover"
+		});
+
+		var topTenTemplate = resultsTemplate.find(".top-ten");
+		topTenTemplate.text(results);
+
+		$("#results").append(resultsTemplate).fadeIn(3000);
 	})
 	.fail(function(jqXHR, error, errorThrown){
 		var errorElem = showError(error);
