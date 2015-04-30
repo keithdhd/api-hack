@@ -24,7 +24,13 @@ var getSearchResults = function(searchQuery){
 		type: "GET"
 	})
 	.done(function(result){
-		showSearchResults(result);
+				
+console.log(result);
+		//for each artist get their top ten tracks
+		$.each(result.artists.items, function(i, item){
+				//get the top 10 for this artist then display the results
+				 getTopTen(item);
+			});
 	})
 	.fail(function(jqXHR, error, errorThrown){
 		var errorElem = showError(error);
@@ -32,26 +38,8 @@ var getSearchResults = function(searchQuery){
 	});
 }
 
-var showSearchResults = function(result){
-	
-	var artistTopTen = [];
-	
-	$.each(result.artists.items, function(i, item){
-
-		//get the top 10 for this artist
-		artistTopTen = getTopTen(item);
-	});
-
-}
-var getTopTen = function(artist){
-
-	var results = $.ajax({
-		url: "https://api.spotify.com/v1/artists/" + artist.id + "/top-tracks?country=US",
-		dataType: "json",
-		type: "GET"
-	})
-	.done(function(results){
-				// clone our result template code
+var showSearchResults = function(artist, topTen){	
+		// clone our result template code
 		var resultsTemplate = $(".templates .artist").clone();
 
 		var cover = resultsTemplate.find(".cover");
@@ -61,7 +49,7 @@ var getTopTen = function(artist){
 		if(artist.images.length){
 			var imageUrl = artist.images[0].url;
 		}else
-			var imageUrl = "default image url";
+			var imageUrl = "no-picture.jpg";
 
 		cover.css({
 			"background-image": "url(" + imageUrl + ")",
@@ -69,15 +57,30 @@ var getTopTen = function(artist){
 		});
 
 		var topTenTemplate = resultsTemplate.find(".top-ten");
-		topTenTemplate.text(results);
 
+		//for each track, display its title ranking and popularity
+		$.each(topTen.tracks, function(i, trackObject){
+			topTenTemplate.append((i+1) + ".  <a target='_blank' href='" + trackObject.preview_url + "'>" + trackObject.name + "</a><br/>");
+		});
+		
 		$("#results").append(resultsTemplate).fadeIn(3000);
+}
+
+var getTopTen = function(artist){
+
+	var results = $.ajax({
+		url: "https://api.spotify.com/v1/artists/" + artist.id + "/top-tracks?country=US",
+		dataType: "json",
+		type: "GET"
 	})
+	.done(function(results){
+		showSearchResults(artist, results);
+	})	
 	.fail(function(jqXHR, error, errorThrown){
 		var errorElem = showError(error);
 		$('.results').append(errorElem);
 	});
-
+	
 }
 
 var showError = function(error){

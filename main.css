@@ -5,6 +5,26 @@ body{
   	text-align: center;
 }
 
+/* unvisited link */
+a:link {
+    color: #e1b509;
+}
+
+/* visited link */
+a:visited {
+    color: #00FF00;
+}
+
+/* mouse over link */
+a:hover {
+    color: #FF00FF;
+}
+
+/* selected link */
+a:active {
+    color: #0000FF;
+}
+
 .hidden{
 	display: none;
 }
@@ -14,11 +34,10 @@ body{
 	margin:20px auto;
 	height:268px;
 	padding: 5px;
-	border-bottom: 1px solid green;
 }
 
 .artist-name{
-	min-height:30px;
+	min-height:25px;
 	background-color: green;
 	border-radius: 5px;
 	padding: 5px;
@@ -26,7 +45,7 @@ body{
 
 .column{
 	width:48%;
-	height:75%;
+	height:82%;
 	float:left;
 	padding: 5px;
 	margin-top: 5px;
@@ -40,6 +59,8 @@ body{
 .top-ten{
 	background-color: green;
 	float: right;
+	font-size: 10px;
+	text-align: left;
 }
 
 #input-search{
