@@ -8,6 +8,13 @@ $(function(){
 		getSearchResults(searchQuery);
 	});
 
+	$(document).keyup(function(e){
+
+		if(e.keyCode == 13){
+			$("#search-button").click();
+		}
+	})
+
 })
 
 var getSearchResults = function(searchQuery){
@@ -24,13 +31,19 @@ var getSearchResults = function(searchQuery){
 		type: "GET"
 	})
 	.done(function(result){
-				
-console.log(result);
-		//for each artist get their top ten tracks
-		$.each(result.artists.items, function(i, item){
+
+		//do we have any results?
+		if(!result.artists.items.length){
+			$("#results").html("<p>Sorry there were 0 results</p>");
+			$("#results").show();
+		}
+		else{
+			//for each artist get their top ten tracks
+			$.each(result.artists.items, function(i, item){
 				//get the top 10 for this artist then display the results
-				 getTopTen(item);
+				getTopTen(item);
 			});
+		}	
 	})
 	.fail(function(jqXHR, error, errorThrown){
 		var errorElem = showError(error);
@@ -89,3 +102,7 @@ var showError = function(error){
 	errorTemplate.text(error);
 	return errorTemplate;
 }
+
+
+
+
